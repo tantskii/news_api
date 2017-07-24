@@ -39,6 +39,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
+    bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
     concurrent-ruby (1.0.5)
@@ -63,7 +64,6 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
-    puma (3.9.1)
     rack (2.0.3)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -111,6 +111,11 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    web-console (3.5.1)
+      actionview (>= 5.0)
+      activemodel (>= 5.0)
+      bindex (>= 0.4.0)
+      railties (>= 5.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -121,12 +126,12 @@ PLATFORMS
 DEPENDENCIES
   byebug
   listen (~> 3.0.5)
-  puma (~> 3.0)
-  rails (~> 5.0.4)
+  rails (~> 5.0.2)
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
   tzinfo-data
+  web-console (>= 3.3.0)
 
 BUNDLED WITH
    1.14.6
