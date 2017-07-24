@@ -50,14 +50,10 @@ class UsersController < ApplicationController
   end
 
   def authorize_user
-    # TODO
+    render json: {answer: 'you do not have the right to do this'} unless current_user == @user
   end
 
   def load_user
     @user ||= User.find params[:id]
-  end
-
-  def current_user
-    # TODO
   end
 end

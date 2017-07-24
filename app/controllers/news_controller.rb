@@ -57,8 +57,4 @@ class NewsController < ApplicationController
   def authorize_user
     # TODO
   end
-
-  def current_user
-    # TODO
-  end
 end
