@@ -1,25 +1,15 @@
 class UsersController < ApplicationController
-  before_action :load_user, except: [:create, :index]
-  before_action :authorize_user, except: [:create, :index]
+  before_action :load_user, except: :create
+  before_action :authorize_user, except: :create
 
   def create
     @new_user = User.new(user_params)
 
     if @new_user.save
-      render json: @user
+      render json: @new_user
     else
-      render json: @user.errors
+      render json: @new_user.errors
     end
-  end
-
-  def index
-    @users = User.all
-
-    render json: @users
-  end
-
-  def show
-    render json: @user
   end
 
   def update
@@ -32,6 +22,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
+    session[:user_id] = nil
+
     raise @user.errors[:base].to_s unless @user.errors[:base].empty?
     render json: {success: true}, status: 200
   end

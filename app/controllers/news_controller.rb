@@ -1,16 +1,7 @@
 class NewsController < ApplicationController
   before_action :load_news, except: [:index, :create]
-  before_action :authorize_user, only: [:create, :update, :destroy]
-
-  def index
-    @news_all = News.all
-
-    render json: @news_all
-  end
-
-  def show
-    render json: @news
-  end
+  before_action :reject_unauthorized, only: :create
+  before_action :authorize_user, only: [:update, :destroy]
 
   def create
     @new_news = News.new(news_params)
@@ -21,6 +12,10 @@ class NewsController < ApplicationController
     else
       render json: @new_news.errors
     end
+  end
+
+  def show
+    render json: @news
   end
 
   def update
@@ -35,6 +30,12 @@ class NewsController < ApplicationController
     @news.destroy
     raise @news.errors[:base].to_s unless @news.errors[:base].empty?
     render json: {success: true}, status: 200
+  end
+
+  def index
+    @news_all = News.all
+
+    render json: @news_all
   end
 
   private
@@ -54,7 +55,17 @@ class NewsController < ApplicationController
     @news ||= News.find params[:id]
   end
 
+  def reject_unauthorized
+    unless current_user
+      render json: {answer: 'you need to authorize to create news'}
+    end
+  end
+
   def authorize_user
-    # TODO
+    render json: {answer: 'you do not have the right to do this'} unless current_user == @news.user
+  end
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 end

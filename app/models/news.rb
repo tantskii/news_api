@@ -4,6 +4,8 @@ class News < ApplicationRecord
   validates :datetime, :сontent, :title, :sources, :user, presence: true, on: :create
   # TODO validates :datetime, :сontent, :sources, uniqueness: true
 
+  serialize :sources, Array
+
   before_save :fill_in_date
 
   private
