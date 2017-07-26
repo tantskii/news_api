@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   context 'validation check' do
-    it { should validate_presence_of :username }
-    it { should validate_presence_of :password }
-    it { should validate_uniqueness_of :username }
+    it {should validate_presence_of :username}
+    it {should validate_presence_of :password}
+    it {should validate_uniqueness_of :username}
+    it {should validate_length_of :username}
   end
 
   context 'self.authenticate' do

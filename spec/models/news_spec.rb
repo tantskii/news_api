@@ -6,6 +6,7 @@ RSpec.describe News, type: :model do
     it {should validate_presence_of :content}
     it {should validate_presence_of :title}
     it {should validate_presence_of :sources}
+    it {should validate_length_of :title}
   end
 
   context 'fill_in_date' do

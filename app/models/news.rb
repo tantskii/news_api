@@ -1,8 +1,8 @@
 class News < ApplicationRecord
   belongs_to :user
 
-  validates :datetime, :content, :title, :sources, :user, presence: true, on: :create
-  # TODO validates :datetime, :content, :sources, uniqueness: true
+  validates :datetime, :content, :title, :sources, :user, presence: true
+  validates :title, length: {maximum: 100}
 
   serialize :sources, Array
 

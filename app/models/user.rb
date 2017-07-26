@@ -1,6 +1,11 @@
 class User < ApplicationRecord
   has_many :news
 
+  USERNAME_REGEX = /\A[a-zA-Z0-9_]+\z/
+
+  validates :username, length: {maximum: 20}
+  validates :username, format: {with: USERNAME_REGEX}
+
   validates :username, :password, presence: true
   validates :username, uniqueness: true
 
