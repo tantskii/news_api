@@ -9,6 +9,7 @@ RSpec.describe SessionsController, type: :controller do
       response_hash = JSON.parse(response.body)
 
       expect(session[:user_id]).to eq user.id
+      expect(response.status).to eq 200
       expect(response_hash["answer"]).to eq "you have successfully logged in"
     end
 
@@ -17,6 +18,7 @@ RSpec.describe SessionsController, type: :controller do
       response_hash = JSON.parse(response.body)
 
       expect(session[:user_id]).to eq nil
+      expect(response.status).to eq 401
       expect(response_hash["answer"]).to eq "wrong password or username"
     end
 
@@ -25,6 +27,7 @@ RSpec.describe SessionsController, type: :controller do
       response_hash = JSON.parse(response.body)
 
       expect(session[:user_id]).to eq nil
+      expect(response.status).to eq 401
       expect(response_hash["answer"]).to eq "wrong password or username"
     end
   end
@@ -35,6 +38,7 @@ RSpec.describe SessionsController, type: :controller do
       response_hash = JSON.parse(response.body)
 
       expect(session[:user_id]).to eq nil
+      expect(response.status).to eq 200
       expect(response_hash["answer"]).to eq "you have successfully logged out"
     end
 
@@ -43,6 +47,7 @@ RSpec.describe SessionsController, type: :controller do
 
       delete :destroy, controller: :user, params: {id: user.id}
 
+      expect(response.status).to eq 200
       expect(session[:user_id]).to eq nil
     end
   end

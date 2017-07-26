@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @new_user.save
       render json: @new_user
     else
-      render json: @new_user.errors
+      render json: @new_user.errors, status: 403
     end
   end
 
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       render json: @user
     else
-      render json: @user.errors
+      render json: @user.errors, status: 403
     end
   end
 
@@ -42,7 +42,9 @@ class UsersController < ApplicationController
   end
 
   def authorize_user
-    render json: {answer: 'you do not have the right to do this'} unless current_user == @user
+    unless current_user == @user
+      render json: {answer: 'you do not have the right to do this'}, status: 401
+    end
   end
 
   def load_user

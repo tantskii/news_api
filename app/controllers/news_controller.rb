@@ -10,7 +10,7 @@ class NewsController < ApplicationController
     if @new_news.save
       render json: @new_news
     else
-      render json: @new_news.errors
+      render json: @new_news.errors, status: 403
     end
   end
 
@@ -22,7 +22,7 @@ class NewsController < ApplicationController
     if @news.update(news_params)
       render json: @news
     else
-      render json: @news.errors
+      render json: @news.errors, status: 403
     end
   end
 
@@ -57,15 +57,13 @@ class NewsController < ApplicationController
 
   def reject_unauthorized
     unless current_user
-      render json: {answer: 'you need to authorize to create news'}
+      render json: {answer: 'you need to authorize to create news'}, status: 401
     end
   end
 
   def authorize_user
-    render json: {answer: 'you do not have the right to do this'} unless current_user == @news.user
-  end
-
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+    unless current_user == @news.user
+      render json: {answer: 'you do not have the right to do this'}, status: 401
+    end
   end
 end

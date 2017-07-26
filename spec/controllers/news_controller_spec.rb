@@ -30,6 +30,7 @@ RSpec.describe NewsController, type: :controller do
       news_number_after = News.all.count
 
       expect(news_number_after).to eq news_number_before + 1
+      expect(response.status).to eq 200
     end
   end
 
@@ -41,6 +42,7 @@ RSpec.describe NewsController, type: :controller do
       news_number   = News.all
 
       expect(news_number.count).to eq response_hash.count
+      expect(response.status).to eq 200
     end
 
     it 'returns news by id' do
@@ -58,6 +60,8 @@ RSpec.describe NewsController, type: :controller do
 
       last_news     = last_news.as_json
       response_hash = JSON.parse(response.body)
+
+      expect(response.status).to eq 200
 
       expect(response_hash['id']).to eq last_news['id']
       expect(DateTime.parse(response_hash['datetime'])).to eq last_news['datetime']
@@ -78,6 +82,7 @@ RSpec.describe NewsController, type: :controller do
       updated_news = News.find(news.id)
 
       expect(updated_news['title']).to eq 'sport'
+      expect(response.status).to eq 200
     end
 
     it 'does not update news if user is not authorized' do
@@ -88,6 +93,7 @@ RSpec.describe NewsController, type: :controller do
       updated_news = News.find(news.id)
 
       expect(updated_news['title']).to eq 'politics'
+      expect(response.status).to eq 401
     end
   end
 
@@ -100,6 +106,7 @@ RSpec.describe NewsController, type: :controller do
       deleted_news = News.exists?(news.id)
 
       expect(deleted_news).to be_truthy
+      expect(response.status).to eq 401
     end
 
     it 'deletes news if user is authorized' do
@@ -111,6 +118,7 @@ RSpec.describe NewsController, type: :controller do
 
       deleted_news = News.exists?(news.id)
 
+      expect(response.status).to eq 200
       expect(deleted_news).to be_falsey
     end
   end

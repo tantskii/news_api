@@ -30,7 +30,7 @@ RSpec.describe UsersController, type: :controller do
       put :update, params: {id: user.id, password: '12345'}
       response_hash = JSON.parse(response.body)
 
-      expect(response.status).to eq 200
+      expect(response.status).to eq 401
       expect(response_hash["answer"]).to eq "you do not have the right to do this"
     end
 
@@ -40,7 +40,7 @@ RSpec.describe UsersController, type: :controller do
       put :update, params: {id: another_user.id, username: 'new_username'}
       response_hash = JSON.parse(response.body)
 
-      expect(response.status).to eq 200
+      expect(response.status).to eq 401
       expect(response_hash["answer"]).to eq "you do not have the right to do this"
     end
 
@@ -62,7 +62,7 @@ RSpec.describe UsersController, type: :controller do
       delete :destroy, params: {id: user.id}
       response_hash = JSON.parse(response.body)
 
-      expect(response.status).to eq 200
+      expect(response.status).to eq 401
       expect(response_hash["answer"]).to eq "you do not have the right to do this"
     end
 
@@ -72,7 +72,7 @@ RSpec.describe UsersController, type: :controller do
       delete :destroy, params: {id: another_user.id}
       response_hash = JSON.parse(response.body)
 
-      expect(response.status).to eq 200
+      expect(response.status).to eq 401
       expect(response_hash["answer"]).to eq "you do not have the right to do this"
     end
 

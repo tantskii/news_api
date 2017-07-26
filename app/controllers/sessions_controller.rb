@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       render json: {answer: 'you have successfully logged in'}, status: 200
     else
-      render json: {answer: 'wrong password or username'}, status: 200
+      render json: {answer: 'wrong password or username'}, status: 401
     end
   end
 
