@@ -8,7 +8,7 @@ RSpec.describe NewsController, type: :controller do
     it 'does not create news if user is not authorized' do
       post :create, params: {
           datetime: DateTime.now,
-          сontent:  'Donald Trump on Tuesday condemned Jeff Sessions',
+          content:  'Donald Trump on Tuesday condemned Jeff Sessions',
           title:    'politics',
           sources:  %w(bbc NYT guardian)
       }
@@ -22,7 +22,7 @@ RSpec.describe NewsController, type: :controller do
 
       post :create, params: {
           datetime: '2017-07-25 09:37:03',
-          сontent:  'Donald Trump on Tuesday condemned Jeff Sessions',
+          content:  'Donald Trump on Tuesday condemned Jeff Sessions',
           title:    'politics',
           sources:  %w(bbc NYT guardian)
       }
@@ -47,7 +47,7 @@ RSpec.describe NewsController, type: :controller do
       post :create, params: {
           id:       user.id,
           datetime: '2017-07-25 09:37:03',
-          сontent:  'Donald Trump on Tuesday condemned Jeff Sessions',
+          content:  'Donald Trump on Tuesday condemned Jeff Sessions',
           title:    'politics',
           sources:  %w(bbc NYT guardian)
       }
@@ -61,7 +61,7 @@ RSpec.describe NewsController, type: :controller do
 
       expect(response_hash['id']).to eq last_news['id']
       expect(DateTime.parse(response_hash['datetime'])).to eq last_news['datetime']
-      expect(response_hash['сontent']).to eq last_news['сontent']
+      expect(response_hash['content']).to eq last_news['content']
       expect(response_hash['title']).to eq last_news['title']
       expect(response_hash['sources']).to eq last_news['sources']
     end

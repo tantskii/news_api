@@ -42,7 +42,7 @@ class NewsController < ApplicationController
 
   def news_params
     news_params = {}
-    news_keys   = [:datetime, :сontent, :sources, :title]
+    news_keys   = [:datetime, :content, :sources, :title]
 
     news_keys.each do |key|
       news_params[key] = params[key] if params[key]
