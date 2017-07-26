@@ -33,7 +33,7 @@ class NewsController < ApplicationController
   end
 
   def index
-    @news_all = News.all
+    @news_all = News.ordered_by_date(News.all)
 
     render json: @news_all
   end
